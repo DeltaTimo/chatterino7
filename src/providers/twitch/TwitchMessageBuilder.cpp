@@ -29,6 +29,7 @@
 #include "providers/twitch/TwitchBadges.hpp"
 #include "providers/twitch/TwitchChannel.hpp"
 #include "providers/twitch/TwitchIrcServer.hpp"
+#include "providers/pronoundb/PronounDbApi.hpp"
 #include "singletons/Emotes.hpp"
 #include "singletons/Resources.hpp"
 #include "singletons/Settings.hpp"
@@ -1038,6 +1039,24 @@ void TwitchMessageBuilder::appendUsername()
         }
     }
 
+    if (!this->args.isSentWhisper) {
+        // Try getting the user's pronouns.
+        auto pronouns = app->getPronounDb()->getPronounsForUsername(this->message().loginName.toStdString());
+        if (pronouns && *pronouns != "unspecified") {
+            QString pronounsText;
+            pronounsText += "(" + *pronouns + ")";
+            /* this->emplace<TextElement>(pronounsText, MessageElementFlag::Username,
+                                    this->usernameColor_,
+                                    FontStyle::ChatMedium); */
+            // username = pronounsText + " " + username;
+
+            this->emplace<TextElement>(pronounsText, MessageElementFlag::Username,
+                                    this->usernameColor_,
+                                    FontStyle::ChatMedium)
+                ->setLink({Link::UserInfo, this->message().displayName});
+        }
+    }
+
     QString usernameText =
         SharedMessageBuilder::stylizeUsername(username, this->message());
 
@@ -1082,6 +1101,28 @@ void TwitchMessageBuilder::appendUsername()
                                    FontStyle::ChatMediumBold)
             ->setLink({Link::UserInfo, this->message().displayName});
     }
+}
+
+void TwitchMessageBuilder::appendPronouns()
+{
+    if (true) return;
+    auto *app = getIApp();
+
+    QString username = this->userName;
+
+    // Try getting the user's pronouns.
+    auto pronouns = app->getPronounDb()->getPronounsForUsername(username.toStdString());
+    if (!pronouns || *pronouns == "unspecified") {
+        return;
+    }
+
+    QString pronounsText;
+    pronounsText += "(" + *pronouns + ")";
+
+    this->emplace<TextElement>(pronounsText, MessageElementFlag::Username,
+                                this->usernameColor_,
+                                FontStyle::ChatMedium)
+        ->setLink({Link::UserInfo, this->message().displayName});
 }
 
 void TwitchMessageBuilder::processIgnorePhrases(

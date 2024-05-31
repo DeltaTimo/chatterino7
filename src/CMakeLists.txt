@@ -373,6 +373,11 @@ set(SOURCE_FILES
         providers/liveupdates/BasicPubSubManager.hpp
         providers/liveupdates/BasicPubSubWebsocket.hpp
 
+        providers/pronoundb/PronounDbApi.hpp
+        providers/pronoundb/PronounDbApi.cpp
+        providers/pronoundb/PronounDbPronouns.hpp
+        providers/pronoundb/PronounDbPronouns.cpp
+
         providers/recentmessages/Api.cpp
         providers/recentmessages/Api.hpp
         providers/recentmessages/Impl.cpp

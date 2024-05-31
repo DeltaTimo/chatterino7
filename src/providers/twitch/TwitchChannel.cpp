@@ -34,6 +34,7 @@
 #include "providers/twitch/TwitchCommon.hpp"
 #include "providers/twitch/TwitchIrcServer.hpp"
 #include "providers/twitch/TwitchMessageBuilder.hpp"
+#include "providers/pronoundb/PronounDbApi.hpp"
 #include "singletons/Emotes.hpp"
 #include "singletons/Settings.hpp"
 #include "singletons/StreamerMode.hpp"
@@ -1236,6 +1237,7 @@ void TwitchChannel::loadRecentMessages()
                 return;
             }
 
+            // getIApp()->getPronounDb()->getFromMessages(messages);
             tc->addMessagesAtStart(messages);
             tc->loadingRecentMessages_.clear();
 
@@ -1318,6 +1320,7 @@ void TwitchChannel::loadRecentMessagesReconnect()
                 return;
             }
 
+            // getIApp()->getPronounDb()->getFromMessages(messages);
             tc->fillInMissingMessages(messages);
             tc->loadingRecentMessages_.clear();
         },

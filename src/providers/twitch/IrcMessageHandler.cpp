@@ -20,6 +20,7 @@
 #include "providers/twitch/TwitchHelpers.hpp"
 #include "providers/twitch/TwitchIrcServer.hpp"
 #include "providers/twitch/TwitchMessageBuilder.hpp"
+#include "providers/pronoundb/PronounDbApi.hpp"
 #include "singletons/Resources.hpp"
 #include "singletons/Settings.hpp"
 #include "singletons/StreamerMode.hpp"
@@ -1460,6 +1461,7 @@ void IrcMessageHandler::addMessage(Communi::IrcMessage *message,
             server.mentionsChannel->addMessage(msg);
         }
 
+        getIApp()->getPronounDb()->getFromMessage(msg);
         chan->addMessage(msg);
         if (auto *chatters = dynamic_cast<ChannelChatters *>(chan.get()))
         {

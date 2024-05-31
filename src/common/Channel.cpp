@@ -6,6 +6,7 @@
 #include "providers/irc/IrcChannel2.hpp"
 #include "providers/irc/IrcServer.hpp"
 #include "providers/twitch/IrcMessageHandler.hpp"
+#include "providers/pronoundb/PronounDbApi.hpp"
 #include "singletons/Emotes.hpp"
 #include "singletons/Logging.hpp"
 #include "singletons/Settings.hpp"
@@ -99,6 +100,7 @@ void Channel::addMessage(MessagePtr message,
         else if (this->isTwitchChannel())
         {
             channelPlatform = "twitch";
+            getIApp()->getPronounDb()->getPronounsForUsername(message->loginName.toStdString());
         }
         getIApp()->getChatLogger()->addMessage(this->name_, message,
                                                channelPlatform);

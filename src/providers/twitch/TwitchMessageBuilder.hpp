@@ -122,6 +122,7 @@ private:
     // Will read information from thread_ or from IRC tags
     void parseThread();
     void appendUsername();
+    void appendPronouns();
 
     Outcome tryAppendEmote(const EmoteName &name) override;
 

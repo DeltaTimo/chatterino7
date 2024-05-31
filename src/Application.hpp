@@ -56,6 +56,7 @@ class FfzEmotes;
 class SeventvEmotes;
 class ILinkResolver;
 class IStreamerMode;
+class PronounDbApi;
 
 class IApplication
 {
@@ -102,6 +103,7 @@ public:
     virtual SeventvEmotes *getSeventvEmotes() = 0;
     virtual ILinkResolver *getLinkResolver() = 0;
     virtual IStreamerMode *getStreamerMode() = 0;
+    virtual PronounDbApi *getPronounDb() = 0;
 };
 
 class Application : public IApplication
@@ -173,6 +175,7 @@ private:
     const std::unique_ptr<Logging> logging;
     std::unique_ptr<ILinkResolver> linkResolver;
     std::unique_ptr<IStreamerMode> streamerMode;
+    std::unique_ptr<PronounDbApi> pronounDb;
 #ifdef CHATTERINO_HAVE_PLUGINS
     PluginController *const plugins{};
 #endif
@@ -232,6 +235,7 @@ public:
     BttvEmotes *getBttvEmotes() override;
     FfzEmotes *getFfzEmotes() override;
     SeventvEmotes *getSeventvEmotes() override;
+    PronounDbApi *getPronounDb() override;
 
     ILinkResolver *getLinkResolver() override;
     IStreamerMode *getStreamerMode() override;
