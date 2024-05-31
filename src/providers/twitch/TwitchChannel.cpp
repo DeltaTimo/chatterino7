@@ -1236,6 +1236,7 @@ void TwitchChannel::loadRecentMessages()
                 return;
             }
 
+            // getIApp()->getPronounDb()->getFromMessages(messages);
             tc->addMessagesAtStart(messages);
             tc->loadingRecentMessages_.clear();
 
@@ -1318,6 +1319,7 @@ void TwitchChannel::loadRecentMessagesReconnect()
                 return;
             }
 
+            // getIApp()->getPronounDb()->getFromMessages(messages);
             tc->fillInMissingMessages(messages);
             tc->loadingRecentMessages_.clear();
         },

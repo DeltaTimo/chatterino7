@@ -17,6 +17,7 @@
 #include "providers/seventv/SeventvAPI.hpp"
 #include "providers/seventv/SeventvEmotes.hpp"
 #include "providers/twitch/TwitchBadges.hpp"
+#include "providers/pronouns/Pronouns.hpp"
 #include "singletons/ImageUploader.hpp"
 #ifdef CHATTERINO_HAVE_PLUGINS
 #    include "controllers/plugins/PluginController.hpp"
@@ -151,6 +152,7 @@ Application::Application(Settings &_settings, const Paths &paths,
     , logging(new Logging(_settings))
     , linkResolver(new LinkResolver)
     , streamerMode(new StreamerMode)
+    , pronouns(new Pronouns)
 #ifdef CHATTERINO_HAVE_PLUGINS
     , plugins(&this->emplace(new PluginController(paths)))
 #endif
@@ -176,6 +178,7 @@ void Application::fakeDtor()
     this->ffzEmotes.reset();
     this->seventvEmotes.reset();
     this->fonts.reset();
+    this->pronouns.reset();
 }
 
 void Application::initialize(Settings &settings, const Paths &paths)
@@ -575,6 +578,13 @@ SeventvEmotes *Application::getSeventvEmotes()
     assert(this->seventvEmotes);
 
     return this->seventvEmotes.get();
+}
+
+Pronouns *Application::getPronouns()
+{
+    assert(this->pronouns);
+
+    return this->pronouns.get();
 }
 
 void Application::save()

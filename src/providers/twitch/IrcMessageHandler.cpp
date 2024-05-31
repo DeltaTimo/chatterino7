@@ -20,6 +20,7 @@
 #include "providers/twitch/TwitchHelpers.hpp"
 #include "providers/twitch/TwitchIrcServer.hpp"
 #include "providers/twitch/TwitchMessageBuilder.hpp"
+#include "providers/pronouns/Pronouns.hpp"
 #include "singletons/Resources.hpp"
 #include "singletons/Settings.hpp"
 #include "singletons/StreamerMode.hpp"
@@ -1458,6 +1459,10 @@ void IrcMessageHandler::addMessage(Communi::IrcMessage *message,
         if (highlighted && showInMentions)
         {
             server.mentionsChannel->addMessage(msg);
+        }
+
+        if (getSettings()->showPronouns) {
+            getIApp()->getPronouns()->fetchForUsernames({msg->loginName.toStdString()});
         }
 
         chan->addMessage(msg);

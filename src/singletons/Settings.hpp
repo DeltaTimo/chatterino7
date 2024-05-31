@@ -172,6 +172,7 @@ public:
     BoolSetting enableSmoothScrollingNewMessages = {
         "/appearance/smoothScrollingNewMessages", false};
     BoolSetting displaySevenTVPaints = {"/misc/displaySevenTVPaints", true};
+    BoolSetting showPronouns = {"/misc/showPronouns", true};
     BoolSetting boldUsernames = {"/appearance/messages/boldUsernames", true};
     BoolSetting colorUsernames = {"/appearance/messages/colorUsernames", true};
     BoolSetting findAllUsernames = {"/appearance/messages/findAllUsernames",
